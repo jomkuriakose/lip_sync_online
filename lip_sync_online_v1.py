@@ -130,7 +130,11 @@ def lip_sync(video_path, srt_path, audio_list, output_video, output_srt):
     if last_srt_end_time != video_duration:
         final_clip = mp.VideoFileClip(video_path).subclip(srt_time_to_seconds(last_srt_end_time), video_duration)
         final_clip_without_audio = final_clip.without_audio()
-        video_clips.append(final_clip_without_audio)
+        # Create a silent audio clip with the same duration as the video
+        silence = mp.afx.audio_loop(mp.AudioFileClip("silence.wav"), duration=(video_duration - srt_time_to_seconds(last_srt_end_time)), nloops=1)
+        final_clip_with_silence = final_clip_without_audio.set_audio(silence)
+        video_clips.append(final_clip_with_silence)
+        # video_clips.append(final_clip_without_audio)
 
     # concatenate video clips and write final video
     final_video = mp.concatenate_videoclips(video_clips)
