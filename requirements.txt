@@ -1,2 +1,2 @@
-pysrt
-moviepy
+moviepy==1.0.3
+pysrt==1.1.2
