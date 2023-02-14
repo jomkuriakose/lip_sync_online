@@ -1,3 +1,8 @@
+"""
+Lip syncing code - Online version
+Jom Kuriakose - 14/02/23
+"""
+
 import os
 import sys
 import moviepy.editor as mp
