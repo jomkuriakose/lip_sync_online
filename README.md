@@ -1,5 +1,11 @@
 # Code to do online lip syncing.
+This is a simple lip syncing code.
 
+## Installation
+* Python(>3.7)
+```bash
+pip install -r requirements.txt
+```
 ## How to use
 ```bash
 python lip_sync_online_v1.py
