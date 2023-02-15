@@ -27,6 +27,28 @@ lip_sync(video_path, srt_path, audio_list, output_video, output_srt)
 ```
 
 ## Some extra commands
+* Generating silence audio
 ```bash
 ffmpeg -y -f lavfi -i "anullsrc=channel_layout=mono:sample_rate=44100" -t 0.1 silence.wav
+```
+* Extract audio from video
+```bash
+ffmpeg -i input.mp4 -acodec pcm_s16le -ac 2 input.wav
+```
+* SRT to VTT and VTT to SRT conversion codes.
+```bash
+python srt_2_vtt.py input.srt
+python vtt_2_srt.py input.vtt
+```
+* Adding subtitles (SRT) to video
+```bash
+ffmpeg -i input_hin.mp4 -vf subtitles=input.srt -codec:a copy output.mp4
+```
+* Converting SRT to ASS format. This format is better for embedding text in video
+```bash
+ffmpeg -i input.srt input.ass
+```
+* Command to embedded the ASS format srt to video
+```bash
+ffmpeg -i input_hin.mp4 -vf "ass=input.ass" output.mp4
 ```
