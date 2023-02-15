@@ -10,15 +10,19 @@ from pysrt import SubRipFile, SubRipTime, SubRipItem
 
 def srt_time_to_seconds(time_datetime_format):
     time_iso_format = time_datetime_format.isoformat()
+    print(time_iso_format)
     seconds = float(time_iso_format.split(':')[-1])
     rest_list = time_iso_format.split(':')[:-1]
+    print(rest_list)
     if ":".join(rest_list) == "00:00":
         pass
     else:
-        for i in range(0,rest_list):
+        for i in range(0,len(rest_list)):
             if i == 0:
+                print(rest_list[i])
                 seconds += int(rest_list[i])*3600
             elif i == 1:
+                print(rest_list[i])
                 seconds += int(rest_list[i])*60
             else:
                 sys.exit("Error in time conversion")
@@ -81,6 +85,8 @@ def lip_sync(video_path, srt_path, audio_list, output_video, output_srt):
 
         # add srt clip to video_clips
         # print(f"Adding SRT clip to video clips list\nDuration of clip: {srt_time_to_seconds(end_time) - srt_time_to_seconds(start_time)}")
+        print(video_path)
+        print(srt_time_to_seconds(start_time), srt_time_to_seconds(end_time))
         srt_clip = mp.VideoFileClip(video_path).subclip(srt_time_to_seconds(start_time), srt_time_to_seconds(end_time))
         srt_clip_without_audio = srt_clip.without_audio()
         video_clips.append(srt_clip_without_audio)
@@ -158,13 +164,21 @@ def lip_sync(video_path, srt_path, audio_list, output_video, output_srt):
 
 if __name__ == "__main__":
     # input file paths
-    video_path = "test_data/video.mp4"
-    srt_path = "test_data/subs.srt"
-    audio_dir = "test_data/audio_1min"
-    output_video = "test_data/output_video.mp4"
-    output_srt = "test_data/output_video.srt"
+    # video_path = "test_data/video.mp4"
+    # srt_path = "test_data/subs.srt"
+    # audio_dir = "test_data/audio_1min"
+    # output_video = "test_data/output_video.mp4"
+    # output_srt = "test_data/output_video.srt"
+
+    video_path = "telugu_test/Week1_Lecture1_part.mp4"
+    srt_path = "telugu_test/temp_tel.srt"
+    audio_dir = "telugu_test/telugu_tts"
+    output_video = "telugu_test/output_video.mp4"
+    output_srt = "telugu_test/output_video.srt"
 
     audio_list = os.listdir(audio_dir)
     audio_list = [os.path.join(audio_dir, file) for file in audio_list]
+
+    print(audio_list)
 
     lip_sync(video_path, srt_path, audio_list, output_video, output_srt)
