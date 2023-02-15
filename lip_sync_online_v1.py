@@ -10,19 +10,19 @@ from pysrt import SubRipFile, SubRipTime, SubRipItem
 
 def srt_time_to_seconds(time_datetime_format):
     time_iso_format = time_datetime_format.isoformat()
-    print(time_iso_format)
+    # print(time_iso_format)
     seconds = float(time_iso_format.split(':')[-1])
     rest_list = time_iso_format.split(':')[:-1]
-    print(rest_list)
+    # print(rest_list)
     if ":".join(rest_list) == "00:00":
         pass
     else:
         for i in range(0,len(rest_list)):
             if i == 0:
-                print(rest_list[i])
+                # print(rest_list[i])
                 seconds += int(rest_list[i])*3600
             elif i == 1:
-                print(rest_list[i])
+                # print(rest_list[i])
                 seconds += int(rest_list[i])*60
             else:
                 sys.exit("Error in time conversion")
@@ -85,8 +85,8 @@ def lip_sync(video_path, srt_path, audio_list, output_video, output_srt):
 
         # add srt clip to video_clips
         # print(f"Adding SRT clip to video clips list\nDuration of clip: {srt_time_to_seconds(end_time) - srt_time_to_seconds(start_time)}")
-        print(video_path)
-        print(srt_time_to_seconds(start_time), srt_time_to_seconds(end_time))
+        # print(video_path)
+        # print(srt_time_to_seconds(start_time), srt_time_to_seconds(end_time))
         srt_clip = mp.VideoFileClip(video_path).subclip(srt_time_to_seconds(start_time), srt_time_to_seconds(end_time))
         srt_clip_without_audio = srt_clip.without_audio()
         video_clips.append(srt_clip_without_audio)
